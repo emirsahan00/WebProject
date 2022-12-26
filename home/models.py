@@ -1,8 +1,11 @@
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.db import models
-
+from django import forms
 # Create your models here.
 
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.forms import ModelForm, TextInput, Textarea
 
 
 class Setting(models.Model):
@@ -52,5 +55,27 @@ class ContactFormMessage(models.Model):
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-         return self.title
+         return self.name
+
+class ContactForm(ModelForm):
+    class Meta:
+        model = ContactFormMessage
+        fields = ['name', 'email', 'subject','message']
+        widgets = {
+            'name': TextInput(attrs={'class': 'contactus','placeholder':'Name & Surname'}),
+            'subject': TextInput(attrs={'class': 'contactus','placeholder':'Subject'}),
+            'email': TextInput(attrs={'class': 'contactus','placeholder':'Email Address'}),
+            'message': Textarea(attrs={'class': 'contactus','placeholder':'Your Message','rows':'5'}),
+        }
+
+class SignUpForm(UserCreationForm):
+    username = forms.CharField(max_length=30,label='User name :')
+    first_name = forms.CharField(max_length=50,help_text='First name',label='First name :')
+    last_name = forms.CharField(max_length=50,help_text='Last name',label='Last name :')
+    email = forms.EmailField(max_length=100,label='Email :')
+
+    class Meta:
+        model = User
+        fields = {'username','first_name','last_name','email','password1','password2'}
+
 

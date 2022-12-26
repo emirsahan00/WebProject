@@ -5,22 +5,39 @@
          <div class="footer">
             <div class="container">
                <div class="row">
+
                   <div class="col-md-4">
                      <div class="titlepage">
                         <h2>Bize Ulaşın</h2>
                      </div>
                   </div>
+                  x
                   <div class="col-md-12">
-                     <form id="request" class="main_form">
-                        <div class="row">
+
+                     <form id="request" class="main_form" method="post" action="">
+                       <!--  {% if message %}
+                                {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}
+                                </div>
+                                {% endfor %}
+                        {% endif %}
+                    <form action =""method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="SEND FORM">
+                    </form>-->
+
+
+                         <div class="row">
                            <div class="col-md-3 ">
-                              <input class="contactus" placeholder="Ad" type="type" name="Full Name">
+                              <input class="contactus" placeholder="Ad" type="text" name="Full Name">
                            </div>
                            <div class="col-md-3">
-                              <input class="contactus" placeholder="Email" type="type" name="Email">
+                              <input class="contactus" placeholder="Email" type="email" name="Email">
                            </div>
                            <div class="col-md-3">
-                              <input class="contactus" placeholder="Telefon Numarası" type="type" name="Phone Number">
+                              <input class="contactus" placeholder="Telefon Numarası" type="text" name="Phone Number">
                            </div>
                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                               <ul class="social_icon">
@@ -38,6 +55,7 @@
                            </div>
                         </div>
                      </form>
+
                   </div>
                   <div class="col-md-3 border_right">
                      <ul class="location_icon">
@@ -55,7 +73,7 @@
 <li><a href="/home">ANASAYFA</a></li>
 <li><a href="/hakkimizda">HAKKIMIZDA</a></li>
 <li><a href="/turistikmekan">TURİSTİK MEKANLAR</a></li>
-<!--<li><a href="blog.html"></a></li> -->
+<li><a href="/about">BLOG</a></li>
 <li><a href="/iletisim">İLETİŞİM</a></li>
                      </ul>
                   </div>
@@ -77,14 +95,15 @@
                   </div>
                </div>
             </div>
+              {{ setting.contact|safe }}
          </div>
       </footer>
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="{% static 'js/jquery.min.js'%}"></script>
-      <script src="{% static 'js/popper.min.js'%}></script>
-      <script src="{% static 'js/bootstrap.bundle.min.js'%}></script>
-      <script src="{% static 'js/jquery-3.0.0.min.js'%}></script>
+      <script src="{% static 'js/popper.min.js'%}"></script>
+      <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+      <script src="{% static 'js/jquery-3.0.0.min.js'%}"></script>
       <!-- sidebar -->
-      <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js'%}></script>
-      <script src="{% static 'js/custom.js'%}></script>
+      <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+      <script src="{% static 'js/custom.js'%}"></script>

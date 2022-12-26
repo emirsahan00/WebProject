@@ -1,7 +1,9 @@
-from django.http import HttpResponse
+from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from home.models import Setting
+from home.models import Setting, ContactForm, ContactFormMessage, SignUpForm
 from product.models import Product
 
 
@@ -33,22 +35,25 @@ def about(request):
     return render(request, 'about.html',context)
 
 def iletisim1(request):
+
     if request.method =='POST':
         form =ContactForm(request.POST)
         if form.is_valid():
-            data = ContactForm()
-            data.name = form.cleanad_data['name']
-            data.email = form.cleanad_data['email']
-            data.phonenumber = form.cleanad_data['phonenumber']
-            data.message = form.cleanad_data['message']
+            data = ContactFormMessage()
+            data.name = form.cleaned_data['name']
+            data.email = form.cleaned_data['email']
+            data.subject = form.cleaned_data['subject']
+            data.ip = request.META.get('REMOTE_ADDR')
+            data.message = form.cleaned_data['message']
+
             data.save()
-            messages.success(request, "Mesajınız başarı ile gönderilmiştir.")
-            return HttpResponseRedirect('/iletisim')
+            messages.success(request,"mesaj iletildi")
+            return HttpResponseRedirect('/footer')
 
     setting = Setting.objects.get(pk=1)
     form = ContactForm()
     context = {'setting':setting,'form' :form}
-    return render(request,'iletisim.html',context)
+    return render(request,'footer.html',context)
 
 
 def turistikmekan(request):
@@ -56,4 +61,36 @@ def turistikmekan(request):
 
     context = {'setting':setting,'page' :'turistikmekan'}
     return render(request, 'turistikmekan.html',context)
+
+def logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+def login(request):
+    if request.method=='POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect('/')
+        else:
+            messages.warning(request, "Giriş başarısız! Hatalı kullanıcı adı veya parola girişi.")
+            return HttpResponseRedirect ('/login')
+    return render(request, 'login.html')
+
+def signup(request):
+    if request.method=='POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username =form.cleaned_data.get('username')
+            password =form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return HttpResponseRedirect('/')
+
+    form = SignUpForm()
+    context = {'form':form}
+    return render(request, 'signup.html', context)
 
