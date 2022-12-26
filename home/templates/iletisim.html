@@ -1,0 +1,25 @@
+{% extends "homebaseiletisim.html" %}
+
+{% block title %}{{setting.title}}{% endblock %}
+{% block keywords %} {{setting.keywords}} {% endblock %}
+{% block description %} {{setting.description}} {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{setting.icon.url}}' />
+{% endblock %}
+<form action="" method="post">
+
+{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Gönder">
+
+</form>
+
+
+{% block slider %}
+    {% include "slider.html" %}
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
