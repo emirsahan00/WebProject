@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from home.models import Setting, ContactFormMessage, SignUpForm, ContactFormu
+from home.forms import SignUpForm
+from home.models import Setting, ContactFormMessage, ContactFormu
 from product.models import Product
 
 
