@@ -57,15 +57,15 @@ class ContactFormMessage(models.Model):
     def __str__(self):
          return self.name
 
-class ContactForm(ModelForm):
+class ContactFormu(ModelForm):
     class Meta:
         model = ContactFormMessage
         fields = ['name', 'email', 'subject','message']
         widgets = {
             'name': TextInput(attrs={'class': 'contactus','placeholder':'Name & Surname'}),
-            'subject': TextInput(attrs={'class': 'contactus','placeholder':'Subject'}),
-            'email': TextInput(attrs={'class': 'contactus','placeholder':'Email Address'}),
-            'message': Textarea(attrs={'class': 'contactus','placeholder':'Your Message','rows':'5'}),
+            'email': TextInput(attrs={'class': 'contactus','placeholder':'email'}),
+            'subject': TextInput(attrs={'class': 'contactus','placeholder':'subject'}),
+            'message': Textarea(attrs={'class': 'contactus','placeholder':'Your Message'}),
         }
 
 class SignUpForm(UserCreationForm):

@@ -1,9 +1,9 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from home.models import Setting, ContactForm, ContactFormMessage, SignUpForm
+from home.models import Setting, ContactFormMessage, SignUpForm, ContactFormu
 from product.models import Product
 
 
@@ -37,21 +37,21 @@ def about(request):
 def iletisim1(request):
 
     if request.method =='POST':
-        form =ContactForm(request.POST)
+        form =ContactFormu(request.POST)
         if form.is_valid():
             data = ContactFormMessage()
             data.name = form.cleaned_data['name']
             data.email = form.cleaned_data['email']
             data.subject = form.cleaned_data['subject']
-            data.ip = request.META.get('REMOTE_ADDR')
+            #data.ip = request.META.get('REMOTE_ADDR')
             data.message = form.cleaned_data['message']
 
             data.save()
             messages.success(request,"mesaj iletildi")
-            return HttpResponseRedirect('/footer')
+            return HttpResponseRedirect('/iletisim/footer')
 
     setting = Setting.objects.get(pk=1)
-    form = ContactForm()
+    form = ContactFormu()
     context = {'setting':setting,'form' :form}
     return render(request,'footer.html',context)
 
@@ -62,11 +62,11 @@ def turistikmekan(request):
     context = {'setting':setting,'page' :'turistikmekan'}
     return render(request, 'turistikmekan.html',context)
 
-def logout(request):
+def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-def login(request):
+def login_view(request):
     if request.method=='POST':
         username=request.POST['username']
         password=request.POST['password']
@@ -79,7 +79,7 @@ def login(request):
             return HttpResponseRedirect ('/login')
     return render(request, 'login.html')
 
-def signup(request):
+def signup_view(request):
     if request.method=='POST':
         form = SignUpForm(request.POST)
         if form.is_valid():

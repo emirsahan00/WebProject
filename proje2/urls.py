@@ -24,15 +24,16 @@ urlpatterns = [
     path('', include('home.urls')),           #hiçbir şey yazılmayınca da home sayfasına gider
     path('hakkımızda/', views.hakkimizda,name='hakkımızda'),
     path('iletisim/', views.iletisim,name='iletisim'),
+    path('iletisim/', views.iletisim1,name='iletisimfooter'),
     path('turistikmekan/', views.turistikmekan,name='turistikmekan'),
     path('about/', views.about,name='about'),
     path('home/', include('home.urls')),
     path('product/', include('product.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('logout/', views.logout, name='logout'),
-    path('login/', views.login, name='login'),
-    path('signup/', views.signup, name='signup'),
+    path('logout/', views.logout_view, name='logout_view'),
+    path('login/', views.login_view, name='login_view'),
+    path('signup/', views.signup_view, name='signup_view'),
 
 ]
 
