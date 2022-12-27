@@ -23,11 +23,7 @@ def hakkimizda(request):
     context = {'setting':setting,'page' :'hakkımızda'}
     return render(request, 'hakkımızda.html',context)
 
-def iletisim(request):
-    setting = Setting.objects.get(pk=1)
 
-    context = {'setting':setting,'page' :'iletisim'}
-    return render(request, 'iletisim.html',context)
 
 def about(request):
     setting = Setting.objects.get(pk=1)
@@ -44,17 +40,17 @@ def iletisim1(request):
             data.name = form.cleaned_data['name']
             data.email = form.cleaned_data['email']
             data.subject = form.cleaned_data['subject']
-            #data.ip = request.META.get('REMOTE_ADDR')
+            data.ip = request.META.get('REMOTE_ADDR')
             data.message = form.cleaned_data['message']
 
             data.save()
             messages.success(request,"mesaj iletildi")
-            return HttpResponseRedirect('/iletisim/footer')
+            return HttpResponseRedirect('/iletisim')
 
     setting = Setting.objects.get(pk=1)
     form = ContactFormu()
     context = {'setting':setting,'form' :form}
-    return render(request,'footer.html',context)
+    return render(request,'iletisim.html',context)
 
 
 def turistikmekan(request):
