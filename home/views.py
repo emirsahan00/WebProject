@@ -44,7 +44,7 @@ def iletisim1(request):
             data.message = form.cleaned_data['message']
 
             data.save()
-            messages.success(request,"mesaj iletildi")
+            messages.success(request,"Mesaj iletildi")
             return HttpResponseRedirect('/iletisim')
 
     setting = Setting.objects.get(pk=1)
