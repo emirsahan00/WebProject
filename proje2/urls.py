@@ -24,7 +24,7 @@ urlpatterns = [
     path('', include('home.urls')),           #hiçbir şey yazılmayınca da home sayfasına gider
     path('hakkımızda/', views.hakkimizda,name='hakkımızda'),
     path('iletisim/', views.iletisim,name='iletisim'),
-    path('iletisim/', views.iletisim1,name='iletisimfooter'),
+    path('iletisim1/', views.iletisim1,name='iletisimfooter'),
     path('turistikmekan/', views.turistikmekan,name='turistikmekan'),
     path('about/', views.about,name='about'),
     path('home/', include('home.urls')),

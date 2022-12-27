@@ -36,9 +36,18 @@
                                <li class="nav-item">
                                  <a class="nav-link" href="/about">BLOG</a>
                               </li>
+                               {% if user.id is not None %}
+                               <li class="nav-item">
+                                   <a class="nav-link" href="/logout/">LOGOUT</a>
+                               </li>
+                               {% else %}
                               <li class=" d_none get_btn">
-                                 <a  href="/login">LOGİN</a>
+                                 <a href="/login/">LOGİN</a>
                               </li>
+                                   <li class=" d_none get_btn">
+                                 <a href="/signup/">SIGN UP</a>
+                              </li>
+                                {% endif %}
                            </ul>
                         </div>
                      </nav>

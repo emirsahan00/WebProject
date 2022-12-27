@@ -1,0 +1,52 @@
+{% extends "loginSupport.html" %}
+
+{% block title %} Sign Up - {{ settings.company }} {% endblock %}
+{% block keywords %} {{ settings.keywords }} {% endblock %}
+{% block description %} {{ settings.description }} {% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="container-fluid py-5">
+                        <div class="container py-5">
+                            <div class="mb-3 pb-3">
+                                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Sign Up</h6>
+                                <h1>Kayıt Bilgileri</h1>
+                            </div>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {% for field in form %}
+                                        <p>
+                                            {{ field.label_tag }}<br>
+                                            {{ field }}
+                                            {% if field.help_text %}
+                                                <small style="color: grey">{{ field.help_text }}</small>
+                                            {% endif %}
+                                            {% for error in field.errors %}
+                                                <p style="color: red">{{ error }}</p>
+                                            {% endfor %}
+                                        </p>
+                                    {% endfor %}
+                                    <button type="submit">Sign Up</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-top: 80px;">
+                    {{ settings.contact|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

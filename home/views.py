@@ -36,8 +36,8 @@ def about(request):
 
 def iletisim1(request):
 
-    if request.method =='POST':
-        form =ContactFormu(request.POST)
+    if request.method == 'POST':
+        form = ContactFormu(request.POST)
         if form.is_valid():
             data = ContactFormMessage()
             data.name = form.cleaned_data['name']
@@ -80,13 +80,13 @@ def login_view(request):
     return render(request, 'login.html')
 
 def signup_view(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            username =form.cleaned_data.get('username')
-            password =form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
             login(request, user)
             return HttpResponseRedirect('/')
 
